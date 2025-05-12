@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AvaloniaLsbProject1.Services;
 using AvaloniaLsbProject1.ViewModels;
+//gpt comment
 using Xabe.FFmpeg; // Ensure this namespace contains ProjectPathsLoader and related classes
 
 namespace AvaloniaLsbProject1.Services
@@ -26,6 +27,7 @@ namespace AvaloniaLsbProject1.Services
         private static (string inputFramesDirectory, string outputFramesDirectory) GetDefaultPaths()
         {
             // Load the configuration from the JSON file (adjust the path as needed)
+            //relative path
             var config = ProjectPathsLoader.LoadConfig("C:\\\\Projects\\\\gitGames\\\\AvaloniaLsbProject1\\\\AvaloniaLsbProject1\\\\Json\\\\projectPaths.json");
             string basePath = config.BaseProjectPath;
             string inputFramesDirectory = Path.Combine(basePath, config.Paths.AllFramesFolder);
@@ -49,6 +51,7 @@ namespace AvaloniaLsbProject1.Services
         /// <param name="text">The plaintext message to be embedded.</param>
         /// <param name="password">The password used for AES encryption of the message.</param>
         /// <returns>A string indicating success or an error message.</returns>
+        //rename this function
         public static string EmbedMessageInFramesTestInVideo(
             string inputframesDirectory,
             string outputframesDirectrory,
@@ -95,6 +98,7 @@ namespace AvaloniaLsbProject1.Services
             Console.WriteLine("Message : " + HelperFunctions.BinaryToString(binaryEncryptedMessage));
 
             // Convert the binary length to a 12-bit binary string
+            //get the f out
             string binaryLength = Convert.ToString(binaryEncryptedMessage.Length, 2).PadLeft(12, '0');
             Console.WriteLine("Binary Length: " + binaryLength);
             int indexer = 0;
@@ -122,7 +126,7 @@ namespace AvaloniaLsbProject1.Services
                     ErrorMessage = ("Timeout reached: expected PNG files were not extracted in time.");
                      exit = true;
                 }
-
+                //gpt
                 // Sleep briefly to reduce CPU usage
                 Thread.Sleep(100);
             }
@@ -150,6 +154,8 @@ namespace AvaloniaLsbProject1.Services
                         bool messageComplete = false;
                         int messageIndex = 0;
                         // Process pixels to embed the message
+                        //make the range smaller than the message complete
+                        //in for height-1 and width-4
                         for (int y = 0; y < bitmap.Height && !messageComplete; y++)
                         {
                             for (int x = 0; x < bitmap.Width && !messageComplete; x++)
@@ -165,6 +171,7 @@ namespace AvaloniaLsbProject1.Services
                                 if (messageIndex >= binaryEncryptedMessage.Length)
                                 {
                                     messageComplete = true;
+                                    //change the color
                                     bitmap.SetPixel(bitmap.Width - 1, bitmap.Height - 1, Color.FromArgb(254, 1, 1));
                                     bitmap.SetPixel(bitmap.Width - 2, bitmap.Height - 1, Color.FromArgb(254, 1, 1));
                                     bitmap.SetPixel(bitmap.Width - 3, bitmap.Height - 1, Color.FromArgb(254, 1, 1));
@@ -216,6 +223,7 @@ namespace AvaloniaLsbProject1.Services
             if (messageIndex < binaryMessage.Length)
             {
                 // Get the bit to embed (0 or 1)
+                //cast this
                 int bit = binaryMessage[messageIndex] == '1' ? 1 : 0;
 
                 // Embed the bit in the LSB
