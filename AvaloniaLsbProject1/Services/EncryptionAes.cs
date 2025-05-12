@@ -105,6 +105,7 @@ namespace AvaloniaLsbProject1.Services
         /// <returns>True if encryption was successful</returns>
         public static bool EncryptExistingVideoKeyStorage(string masterPassword)
         {
+            //relative path
             string storagePath = "C:\\\\Projects\\\\gitGames\\\\AvaloniaLsbProject1\\\\AvaloniaLsbProject1\\\\Json\\\\VideoKeyStorage.json";
 
             try
@@ -130,7 +131,7 @@ namespace AvaloniaLsbProject1.Services
                     string password = entry.Value;
 
                     // Encrypt both values
-                    string encryptedName = EncryptionAes.Encrypt(videoName, masterPassword);
+                    string encryptedName = EncryptionAes.Encrypt(videoName, );
                     string encryptedPassword = EncryptionAes.Encrypt(password, masterPassword);
 
                     // Add to new dictionary
