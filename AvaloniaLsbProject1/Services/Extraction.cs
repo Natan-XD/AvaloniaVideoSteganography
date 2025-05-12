@@ -16,12 +16,14 @@ namespace AvaloniaLsbProject1.Services
 {
     internal class Extraction
     {
+        //remove these
         // Example usage of the ExtractIFrames function
         //string inputFilePath = "C:/Users/user 2017/Videos/WireShark/ArcVideo_clip.ts";
         //string outputDirectory = "C:/Users/user 2017/Videos/WireShark/LSBextractedFrames";
         
         public static async Task ExtractAllFrames(string videoFilePath, string outputDirectory,double FPS)
         {
+            //gpt comment
             // Set the FFmpeg path if not already set
             FFmpeg.SetExecutablesPath("C:/ffmpeg/bin"); // Change to your FFmpeg path
 
@@ -47,9 +49,10 @@ namespace AvaloniaLsbProject1.Services
             Console.WriteLine("All frames have been extracted and saved to the output directory.");
         }
 
-        public  static async Task ExtractIFrames(string videoFilePath, string outputDirectory)
+        public static async Task ExtractIFrames(string videoFilePath, string outputDirectory)
         {
             // Set the FFmpeg path if not already set
+            //do this once
             FFmpeg.SetExecutablesPath("C:/ffmpeg/bin"); // Change to your FFmpeg path  
 
             // Define the output pattern for frame images
@@ -69,12 +72,13 @@ namespace AvaloniaLsbProject1.Services
 
             Console.WriteLine("All I-frames have been extracted and saved to the output directory.");
         }
-
+        //typo
         public static string ExtractMessageFromIFrames(string IframeDirectory,string password , ref string sucssesOrErorr)
         {
            
             string firstFramePath = Directory.GetFiles(IframeDirectory, "*.png").FirstOrDefault();
-            
+            // change the 20 to the amount of files
+            //check this loop
             for(int i = 0; firstFramePath == null&& i < 20;i++)
             {
                 //added delay so it does not look for an I frame not existed yet
@@ -86,6 +90,7 @@ namespace AvaloniaLsbProject1.Services
            
             if (firstFramePath == null)
             {
+                //typo
                 sucssesOrErorr = "Error";
                 return "No frames found in the specified folder.";
             }
@@ -96,6 +101,7 @@ namespace AvaloniaLsbProject1.Services
                 {
 
                     string message;
+                    //put the bitmap in the using
                     Bitmap frameBitmap = new Bitmap(filePath);
                     using (frameBitmap)
                     {
@@ -136,9 +142,10 @@ namespace AvaloniaLsbProject1.Services
             bool exit = false;
 
             // Check if the frame contains a message by examining marker pixels
+
             for (int i = 1;i<=4&& !exit; i++)
             {
-                
+                //change this to more random colors
                 if (frameBitmap.GetPixel(frameBitmap.Width - i, frameBitmap.Height - 1) != System.Drawing.Color.FromArgb(254, 1, 1))
                 {
                     doesContainMessage = false;
@@ -147,17 +154,47 @@ namespace AvaloniaLsbProject1.Services
                 }
             }
             
-            for (int i = 0; i < frameBitmap.Width * frameBitmap.Height && doesContainMessage && !exit; i++)
+/*            for (int i = 0; i < frameBitmap.Width * frameBitmap.Height && doesContainMessage && !exit; i++)
             {
                 int x = i % frameBitmap.Width;
                 int y = i / frameBitmap.Width;
                 pixelColor = frameBitmap.GetPixel(x, y);
+                boolean extractbit(stringbuilder str,System.Drawing.Color pixelColor,int color)
+                {
+                    int pixel;
+                    switch(color){
+                        case 0:
+                            pixel=pixelColor.R;     
+                            break;
+                        case 1:
+                            pixel=pixelColor.R;     
+                            break;
+                        default:
+                            pixel=pixelColor.R;     
+                            break;
+                            }
+                    binaryMessage.Append((pixelColor.R & 1) == 1 ? "1" : "0");
+                    messageBitsExtracted++;
+                    if (messageBitsExtracted % 8 == 0)
+                {
 
-                // Extract the LSB from each color channel
+                    //read the last char and dont create a string each time
+                    HiddenMsg = HelperFunctions.BinaryToString(binaryMessage.ToString());
+                    if (NullCheck(HiddenMsg, messageBitsExtracted) == true)
+                    {
+                        HiddenMsg = HiddenMsg.Remove(HiddenMsg.Length - 1);
+                        exit = true;
+                    }
+
+                }   
+                }
+*/                // Extract the LSB from each color channel
                 binaryMessage.Append((pixelColor.R & 1) == 1 ? "1" : "0");
                 messageBitsExtracted++;
                 if (messageBitsExtracted % 8 == 0)
                 {
+
+                    //read the last char and dont create a string each time
                     HiddenMsg = HelperFunctions.BinaryToString(binaryMessage.ToString());
                     if (NullCheck(HiddenMsg, messageBitsExtracted) == true)
                     {
@@ -168,6 +205,7 @@ namespace AvaloniaLsbProject1.Services
                 }
                 if(!exit)
                 {
+                    //change tostring
                     // Extract LSB from Green channel
                     binaryMessage.Append((pixelColor.G & 1) == 1 ? "1" : "0");
                     messageBitsExtracted++;
@@ -203,10 +241,13 @@ namespace AvaloniaLsbProject1.Services
 
             }
             //binary message still includes the /0 at the end the one that was removed from each hidden message if statement 
+            #if DEBUG
             Console.WriteLine("Binary Message: " + binaryMessage);
+            #endif
             //HiddenMsg = HelperFunctions.BinaryToString(binaryMessage.ToString());
 
             Console.WriteLine("\nEnter the custom key to decrypt:");
+            //remove this line
             string inputKey = password; // Read the custom key from the user for decryption
             string decrypted = "this video does not contain a message ";
             if (doesContainMessage == true)
@@ -235,7 +276,7 @@ namespace AvaloniaLsbProject1.Services
             //Console.WriteLine($"Extracted Message: {extractedMessage}");
 
         }
-
+        //remove
         //this functions prints the last 4 pixels of the image
         public static void GetPixelColor(string filePath)
         {
