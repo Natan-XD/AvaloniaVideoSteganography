@@ -137,6 +137,7 @@ namespace AvaloniaLsbProject1.Services
             StringBuilder binaryMessage = new StringBuilder();
             int messageBitsExtracted = 0;
             System.Drawing.Color pixelColor;
+            //use null type
             string HiddenMsg = "null";
             bool doesContainMessage = true;
             bool exit = false;
@@ -392,6 +393,7 @@ namespace AvaloniaLsbProject1.Services
 
                     // Output the locations for debugging purposes
                     Console.Write($"I-Frame Locations: {string.Join(", ", iFrameLocations)}");
+                    //check break
                     break; // Exit the loop if successful
                 }
                 catch (IOException ex) when (ex.Message.Contains("being used by another process"))
