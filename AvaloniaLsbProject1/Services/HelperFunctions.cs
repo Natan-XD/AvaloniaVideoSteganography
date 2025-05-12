@@ -34,7 +34,7 @@ namespace AvaloniaLsbProject1.Services
                 string byteString = binaryData.Substring(i, 8);
 
                 //add a decryption method for the extracted bits later on 
-
+                //32 bit is to big use short
                 int asciiValue = Convert.ToInt32(byteString, 2);
                 sb.Append((char)asciiValue);
             }
@@ -74,6 +74,7 @@ namespace AvaloniaLsbProject1.Services
         /// <param name="framesPath">Path to the folder containing the video frames.</param>
         /// <param name="outputFilePath">Path to save the reconstructed video file.</param>
         /// <param name="frameRate">Frame rate for the output video (e.g., 30).</param>
+        //change i frames location
         public static string ReconstructVideo(string framesPath, string outputFilePath, double frameRate,int[] iFramesLocations)
         {
             string message;
@@ -94,6 +95,7 @@ namespace AvaloniaLsbProject1.Services
             //last worked on 
             //string arguments = $"-framerate {frameRate} -i \"{inputPattern}\" -pix_fmt bgr24 -c:v libx264rgb -preset veryfast -qp 0 \"{outputFilePath}\"";
 
+            // wtf is this .?
             if (iFramesLocations != null && iFramesLocations.Length > 0)
             {
                 // Adjust for the off-by-one issue by subtracting 1 from each frame number
