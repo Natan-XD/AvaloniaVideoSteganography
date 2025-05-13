@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
-
+//rewrite comments
 public static class KeyExchangeService
 {
     // Port for listener role
@@ -18,6 +18,7 @@ public static class KeyExchangeService
     /// <returns>A task that represents the asynchronous read operation. The task result contains the received data as a byte array.</returns>
     public static async Task<byte[]> ListenAsync(int port)
     {
+        //remove the comment
         TcpListener listener = new(IPAddress.Loopback, port);//loopback 127.0.0.1
         listener.Start();
 
@@ -27,6 +28,7 @@ public static class KeyExchangeService
 
         byte[] buffer = new byte[1024];
         int read;
+        //add a timeout
         while ((read = await stream.ReadAsync(buffer)) > 0)
         {
             ms.Write(buffer, 0, read);
